@@ -7,7 +7,10 @@ declare var vis: any;
 
 
 export interface DialogData {
-  animal: string;
+  books: string;
+  start: string;
+  end: string;
+  title: string;
   name: string;
 }
 
