@@ -1,0 +1,121 @@
+<h1 id="tableLabel">Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!forecasts"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="model">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ model }}</td>
+    </tr>
+  </tbody>
+</table>
+<button onclick="loadJson()">Click me</button>
+
+<div id="visualization"></div>
+<span id="decode-place-holder"></span>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <div id="books"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    var itemArr = [];
+    function myFunction() {
+        // DOM element where the Timeline will be attached
+        var container = document.getElementById('visualization');
+        var template = Handlebars.compile(document.getElementById('item-template').innerHTML);
+        var decodePlaceHolder = $("#decode-place-holder");
+        var tempText = "";
+        var tempBooks = "";
+        // Create a DataSet (allows two way data-binding)
+        @for (var i = 0; i < Model.Items.Count(); i++) {
+        <text>
+        tempText = decodePlaceHolder.html("@Model.Items.ElementAt(i).content").text();
+        tempBooks = decodePlaceHolder.html("@Model.Items.ElementAt(i).books").text();
+
+        itemArr.push({
+            id: @Model.Items.ElementAt(i).id,
+            content: tempText,
+            start: '@Model.Items.ElementAt(i).start',
+            @if (@Model.Items.ElementAt(i).start != @Model.Items.ElementAt(i).end) {
+                <text>end: '@Model.Items.ElementAt(i).end',</text>
+                            }
+            group: @Model.Items.ElementAt(i).group,
+            title: "@Model.Items.ElementAt(i).title" + " (" + @Model.Items.ElementAt(i).end + " - " + @Model.Items.ElementAt(i).start + ")",
+            type: "@Model.Items.ElementAt(i).type",
+            books: tempBooks
+        });</text>
+        }
+
+        var items = new vis.DataSet(itemArr);
+        // Configuration for the Timeline
+        var optionsOriginal = {};
+        let options = {
+            //rtl: true,
+        };
+        // Create a Timeline
+        var timeline = new vis.Timeline(container, items, options);
+        //timeline.on('select', function (properties) {
+        //    //alert(itemArr[properties.items - 100].books);
+        //    var id = properties.items - 100;
+        //    var books = itemArr[id].books;
+        //    $('#myModal #books').empty();
+        //    if (books != "") {
+        //        var booksArr = books.split("_");
+        //        for (var i = 0; i < booksArr.length; i++) {
+        //            var spn = $("<span></span>").html(booksArr[i]);
+        //            $('#myModal #books').append(spn);
+        //        }
+        //        $('#myModal #myModalLabel').html(itemArr[properties.items - 100].content);
+        //        $('#myModal').modal({
+        //            keyboard: false
+        //        })
+        //    }
+        //});
+    }    
+</script>
+<!--<script id="item-template" type="text/x-handlebars-template">
+  <table class="score">
+    <tr>
+      <td colspan="3" class="description">{{content}}</td>
+    </tr>
+    <tr>
+      <td>{{books}}</td>
+    </tr>
+  </table>
+</script>-->
+<style>
+  .modal-header .close {
+    padding: 1rem 1rem 1rem 0;
+  }
+
+  .vis-item .vis-item-overflow {
+    overflow: visible;
+  }
+  /*.vis-item.vis-range .vis-item-content {
+        float: right!important;
+    }*/
+</style>
