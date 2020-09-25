@@ -223,14 +223,14 @@ export class VisTimelineExampleComponent implements OnInit {
     //});
     // Configuration for the Timeline
     let options = {
-      rtl: true//,
+      rtl: true,
       //configure: function (option, path) {
       //  return option === 'format' || path.indexOf('format') !== -1;
       //},
       //stack: true,
       //verticalScroll: true,
       //zoomKey: 'ctrlKey',
-      //height: 600
+      height: 800
     };
     if (this.groups.length > 0) {
 
