@@ -7,9 +7,9 @@
  
 ## rebuild
 
-## ng build --prod --baseHref=”https://arielland.github.io/world-history-timeline/” --outputPath=docs/
+ng build --prod --baseHref=”https://arielland.github.io/world-history-timeline/” --outputPath=docs/
 
-ng build --prod --outputPath=docs/
+## ng build --prod --outputPath=docs/
 
 git add .
 
